@@ -13,7 +13,7 @@ export function Home() {
       <Hero first="tecnologia" second="renovada" />
       <main>
         <div className={styles["product-container"]} id="products">
-          {products.map(elem => <ProductCard product={elem} />)}
+          {products.map(elem => <ProductCard product={elem} key={elem.id} />)}
         </div>
       </main>
       <Footer />

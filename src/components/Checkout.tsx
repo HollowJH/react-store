@@ -1,25 +1,15 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { useLocation } from "react-router-dom"
 import styles from "./Checkout.module.css"
+import { useCart } from "../hooks/useCart"
 
 export function Checkout({ product }) {
+	const {isInCart, updateInCart} = useCart()
 	const [quantity, setQuantity] = useState(1)
-	const [button, setButton] = useState(false)
-	
-	function updateInCart() {
-		let cart = {}
-		localStorage.getItem("cart") ? cart = JSON.parse(localStorage.getItem("cart")) : {}
-		console.log(cart);
-		
-		if(!button){
-			cart[product.title] = product
-		} else{
-			delete cart[product.title]
-		}
-		localStorage.setItem("cart", JSON.stringify(cart))
-		setButton(!button)
-		console.log(cart);
-		
-	}
+	const [button, setButton] = useState(isInCart(product))
+	const location = useLocation()
+
+	useEffect(() => setButton(isInCart(product)), [isInCart, location, product])
 
 	return (
 		<>
@@ -52,7 +42,7 @@ export function Checkout({ product }) {
 					<div className={styles["checkout-process"]}>
 						<div className={styles["top"]}>
 							<input type="number" min="1" defaultValue={quantity} onChange={(e) => setQuantity(Number(e.target.value))} />
-							<button type="button" className={button ? styles["remove-btn"] : styles["cart-btn"]} onClick={updateInCart}>
+							<button type="button" className={button ? styles["remove-btn"] : styles["cart-btn"]} onClick={() => setButton(updateInCart(product))}>
 								{button ? "Remove from cart" : "Add to cart"}
 							</button>
 						</div>
