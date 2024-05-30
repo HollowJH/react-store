@@ -2,12 +2,14 @@ import { useState } from "react"
 import styles from "./Checkout.module.css"
 
 export function Checkout({ product }) {
-	let cart = {}
-	localStorage.getItem("cart") ? cart = JSON.parse(localStorage.getItem("cart")) : {}
 	const [quantity, setQuantity] = useState(1)
-	const [button, setButton] = useState(Object.keys(cart).includes(product.title))
+	const [button, setButton] = useState(false)
 	
-	function updateInCart() {		
+	function updateInCart() {
+		let cart = {}
+		localStorage.getItem("cart") ? cart = JSON.parse(localStorage.getItem("cart")) : {}
+		console.log(cart);
+		
 		if(!button){
 			cart[product.title] = product
 		} else{
