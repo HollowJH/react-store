@@ -1,0 +1,17 @@
+/* MAIN */
+main {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 20px;
+}
+
+/* MAIN PRODUCTS */
+.product-container {
+	width: 1080px;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+	justify-content: space-between;
+}
+
