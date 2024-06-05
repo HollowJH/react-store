@@ -1,23 +1,29 @@
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import styles from "./Checkout.module.css"
 
+
 export function Checkout({ product }) {
-	let cart = {}
-	localStorage.getItem("cart") ? cart = JSON.parse(localStorage.getItem("cart")) : {}
+	const cart = JSON.parse(localStorage.getItem("cart") ?? "{}")
+	const units = useRef<HTMLInputElement>(null);
 	const [quantity, setQuantity] = useState(1)
 	const [button, setButton] = useState(Object.keys(cart).includes(product.title))
-	
-	function updateInCart() {		
-		if(!button){
+
+	function updateInCart() {
+		if (!button) {
+			product.units = quantity
 			cart[product.title] = product
-		} else{
+		} else {
 			delete cart[product.title]
 		}
 		localStorage.setItem("cart", JSON.stringify(cart))
 		setButton(!button)
-		console.log(cart);
-		
 	}
+
+	useEffect(() => {
+		const isInCart = Boolean(cart[product.title])
+		setButton(isInCart)
+		setQuantity(isInCart ? cart[product.title].units : 1)
+	}, [product.id])
 
 	return (
 		<>
@@ -49,7 +55,12 @@ export function Checkout({ product }) {
 					</ul>
 					<div className={styles["checkout-process"]}>
 						<div className={styles["top"]}>
-							<input type="number" min="1" defaultValue={quantity} onChange={(e) => setQuantity(Number(e.target.value))} />
+							<input
+								type="number"
+								min="1"
+								value={quantity}
+								ref={units}
+								onChange={(e) => setQuantity(Number(e.target.value))} />
 							<button type="button" className={button ? styles["remove-btn"] : styles["cart-btn"]} onClick={updateInCart}>
 								{button ? "Remove from cart" : "Add to cart"}
 							</button>
