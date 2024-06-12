@@ -1,29 +1,30 @@
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
+import { useLocation } from "react-router-dom"
 import styles from "./Checkout.module.css"
-
+import { useCart } from "../hooks/useCart"
 
 export function Checkout({ product }) {
-	const cart = JSON.parse(localStorage.getItem("cart") ?? "{}")
-	const units = useRef<HTMLInputElement>(null);
-	const [quantity, setQuantity] = useState(1)
-	const [button, setButton] = useState(Object.keys(cart).includes(product.title))
-
-	function updateInCart() {
-		if (!button) {
-			product.units = quantity
-			cart[product.title] = product
-		} else {
-			delete cart[product.title]
-		}
-		localStorage.setItem("cart", JSON.stringify(cart))
-		setButton(!button)
-	}
+	const {cart, isInCart, updateInCart, updateQuantity} = useCart()
+	const [quantity, setQuantity] = useState(isInCart(product) ? cart[product.title].quantity : 1)
+	const [button, setButton] = useState(isInCart(product))
+	const location = useLocation()
 
 	useEffect(() => {
-		const isInCart = Boolean(cart[product.title])
-		setButton(isInCart)
-		setQuantity(isInCart ? cart[product.title].units : 1)
-	}, [product.id])
+		setButton(isInCart(product))
+		setQuantity(isInCart(product) ? cart[product.title].quantity : 1)
+	}, [cart, isInCart, location, product])
+
+	function handleClick() {
+		updateInCart(product, quantity)
+		setButton(isInCart(product))
+	}
+
+	function changeQuantity(e){
+		setQuantity(() => {
+			if(isInCart(product))updateQuantity(product, Number(e.target.value))
+			return Number(e.target.value)
+		})
+	}
 
 	return (
 		<>
@@ -55,13 +56,8 @@ export function Checkout({ product }) {
 					</ul>
 					<div className={styles["checkout-process"]}>
 						<div className={styles["top"]}>
-							<input
-								type="number"
-								min="1"
-								value={quantity}
-								ref={units}
-								onChange={(e) => setQuantity(Number(e.target.value))} />
-							<button type="button" className={button ? styles["remove-btn"] : styles["cart-btn"]} onClick={updateInCart}>
+							<input type="number" min="1" value={quantity} onChange={(e) => changeQuantity(e)} />
+							<button type="button" className={button ? styles["remove-btn"] : styles["cart-btn"]} onClick={handleClick}>
 								{button ? "Remove from cart" : "Add to cart"}
 							</button>
 						</div>
