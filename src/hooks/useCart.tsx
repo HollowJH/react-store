@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react"
 
-interface product {
+interface Product {
 	id: string
 	title: string
 	description: string
@@ -12,11 +12,17 @@ interface product {
 }
 
 export function useCart() {
-	const [cart, setCart] = useState<{[key: string]: product & {quantity: number}}>(JSON.parse(localStorage.getItem("cart") ?? "{}"))
+	const [cart, setCart] = useState<{[key: string]: Product & {quantity: number}}>(JSON.parse(localStorage.getItem("cart") ?? "{}"))
+	const [total, setTotal] = useState(Object.values(cart).reduce((acc, curr) => acc + (curr.price * curr.quantity), 0))
 
-	const isInCart = useCallback((product: product) => Object.values(cart).some((elem: product) => elem.id === product.id), [cart])
+	const isInCart = useCallback((product: Product) => Object.values(cart).some((elem: Product) => elem.id === product.id), [cart])
 
-	const updateInCart = useCallback((product: product, quantity: number) => {
+	const updateTotal = useCallback(() => {
+		const total = Object.values(cart).reduce((acc, curr) => acc + (curr.price * curr.quantity), 0)
+		setTotal(total)
+	}, [cart])
+
+	const updateInCart = useCallback((product: Product, quantity: number) => {
 		setCart(prevState => {
 			const newCart = { ...prevState }
 			if (isInCart(product)) {
@@ -31,13 +37,13 @@ export function useCart() {
 
 	}, [isInCart])
 	
-	const updateQuantity = useCallback((product: product, quantity: number) => {
-		console.log(cart[product.title].quantity, quantity);
+	const updateQuantity = useCallback((product: Product, quantity: number) => {
 		const newCart = {... cart}
 		newCart[product.title].quantity = quantity
 		setCart(newCart)
 		localStorage.setItem("cart", JSON.stringify(newCart))
-	}, [cart])
+		updateTotal()
+	}, [])
 
-	return { cart, isInCart, updateInCart, updateQuantity }
+	return { cart, total, isInCart, updateInCart, updateQuantity }
 }
