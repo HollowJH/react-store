@@ -1,7 +1,7 @@
 export function Footer() {
   return (
     <>
-      <footer>
+      <footer className="min-h-[250px] bg-[#7525a7] flex flex-col p-2.5 items-center">
         <div id="footer" className="xl:w-[1080px] l:w-full flex flex-wrap gap-5 justify-between p-2.5">
           <ul className="w-42.5 list-none p-2.5">
             <li className="font-bold pb-5">

@@ -1,15 +1,5 @@
 import { Link } from "react-router-dom"
-
-interface Product {
-	id: string
-	title: string
-	description: string
-	price: number
-	stock: number
-	images: string[]
-	colors: string[]
-	onsale: boolean
-}
+import Product from "../interfaces/Product"
 
 interface CartItem extends Product {
 	quantity: number
@@ -21,6 +11,15 @@ interface CartCardProps {
 }
 
 export function CartCard({ cart, updateQuantity }: CartCardProps) {
+	function handleClick(e, product: Product) {
+		if(Number(e.target.value) > product.stock){
+			alert("No hay tantas unidades de este producto")
+			e.target.value = product.stock
+			return
+		}
+		updateQuantity(product, Number(e.target.value))
+	}
+
 	return (<>
 		<article>
 			{Object.values(cart).map((elem) => {
@@ -29,12 +28,12 @@ export function CartCard({ cart, updateQuantity }: CartCardProps) {
 					<Link className="w-[70%] h-[70%]" to={"/details/" + elem.id}>
 						<img className="w-[100px] h-[100px] rounded-[15px] mr-2.5" src={elem.images[0]} alt={elem.title} />
 					</Link>
-					<div className="flex flex-col justify-between gap-0.5 w-[340px] h-[100px] ml-8">
+					<div className="flex flex-col justify-between gap-0.5 w-[340px] ml-8">
 						<strong>{elem.title}</strong><span className="whitespace-nowrap text-ellipsis overflow-hidden">- Silver</span>
 						<p className="whitespace-nowrap text-ellipsis overflow-hidden">{elem.description}</p>
 						<input className="w-[70px] h-10 rounded-[10px] border-[#eaeaea] border-[1px] border-solid p-[5px]"
-							type="number" name="quantity" defaultValue={cart[elem.title].quantity} min="1"
-							id={elem.id} onChange={(e) => updateQuantity(elem, Number(e.target.value))} />
+							type="number" name="quantity" defaultValue={cart[elem.title].quantity} min="1" max={elem.stock}
+							id={elem.id} onChange={(e) => handleClick(e, elem)} />
 					</div>
 					<strong className="w-full text-right">AR$ ${elem.price * cart[elem.title].quantity}</strong>
 				</div>)

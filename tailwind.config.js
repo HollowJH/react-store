@@ -9,6 +9,9 @@ export default {
   ],
   theme: {
     extend: {
+      backgroundImage: {
+        "hero-img": 'url("/hero_bg.png")'
+      },
       gridTemplateColumns: {
         'auto-fit-minmax': 'repeat(auto-fit, minmax(200px, 1fr))',
       },

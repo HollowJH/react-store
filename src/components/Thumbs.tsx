@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import styles from "./Thumbs.module.css"
 
 export function Thumbs({title, images}) {
 	const [thumb, setThumb] = useState(images[0] || "/mock1.jpg");
@@ -14,11 +13,11 @@ export function Thumbs({title, images}) {
 	useEffect(() => setThumb(images[0] || "/mock1.jpg"), [images])
 
 	return (
-		<section className={styles["product-images-block"]}>
-			<div className={styles["product-images"]}>
+		<section className="flex">
+			<div className="w-11 m-1">
 				{images.slice(1).map(img =>
 					<img
-						className={styles["mini-img"]}
+						className="w-[40px] h-[40px] object-cover rounded-[5px]"
 						src={img}
 						key={img}
 						alt={title}
@@ -26,7 +25,7 @@ export function Thumbs({title, images}) {
 					/>)}
 			</div>
 			<img
-				className={styles["big-img"]}
+				className="w-[280px] h-[280px] object-cover rounded-[15px]"
 				id="big-img"
 				src={thumb}
 				alt={title}

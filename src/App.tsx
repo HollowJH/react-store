@@ -1,5 +1,4 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import './App.module.css'
 import { Home } from "./views/Home.tsx"
 import { Details } from "./views/Details.tsx";
 import { Cart } from "./views/Cart.tsx";

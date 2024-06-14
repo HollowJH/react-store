@@ -1,13 +1,10 @@
-import styles from "./Hero.module.css";
-
 export function Hero({first, second}) {
   return (
     <>
-    
-      <section className={styles["hero-section"]}>
-        <article className={styles["hero-title"]}>
-          <span className={styles["hero-span"]}>{first}</span>
-          <span className={styles["hero-span"]}>{second}</span>
+      <section className="h-[200px] bg-hero-img bg-cover bg-top flex justify-center">
+        <article className="w-[1080px] flex flex-col items-start justify-center pl-5">
+          <span className="text-white font-bold text-[40px]">{first}</span>
+          <span className="text-white font-bold text-[100px]/[80px]">{second}</span>
         </article>
       </section>
     </>
