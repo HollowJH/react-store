@@ -4,7 +4,13 @@ import { Details } from "./views/Details.tsx";
 import { Cart } from "./views/Cart.tsx";
 import { NotFound } from "./views/NotFound.tsx";
 
+
 function App() {
+  let basename = '/';
+  if (process.env.NODE_ENV === 'production' && process.env.PUBLIC_URL) {
+    basename = `/${process.env.PUBLIC_URL.split('/').pop()}/`;
+  }
+
   const browserRouter = createBrowserRouter([
     {
       path: "/",
@@ -30,7 +36,10 @@ function App() {
       path: "/*",
       element: <NotFound />
     }
-  ])
+  ],
+    {
+      basename: basename
+    })
 
   return (
     <>

@@ -9,7 +9,7 @@ export function NavBar() {
         <Link to="/" className="w-[33%] flex items-center grow justify-start ">
           <img
             className="h-[50px]"
-            src="/tiendamia-logo.svg"
+            src="/${process.env.PUBLIC_URL.split('/').pop()}/tiendamia-logo.svg"
             width="218"
             alt="Logo store"
           />
