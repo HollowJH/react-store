@@ -2,7 +2,7 @@ import { NavBar } from '../components/NavBar.tsx'
 import { Hero } from '../components/Hero.tsx'
 import { Footer } from '../components/Footer.tsx'
 import { ProductCard } from '../ProductCard.tsx'
-import { products } from "../assets/products.js"
+import { products } from "../../public/products.js"
 import Product from '../interfaces/Product'
 
 export function Home() {

@@ -6,10 +6,7 @@ import { NotFound } from "./views/NotFound.tsx";
 
 
 function App() {
-  let basename = '/';
-  if (process.env.NODE_ENV === 'production' && process.env.PUBLIC_URL) {
-    basename = `/${process.env.PUBLIC_URL.split('/').pop()}/`;
-  }
+  // let basename = '/';
 
   const browserRouter = createBrowserRouter([
     {
@@ -36,10 +33,7 @@ function App() {
       path: "/*",
       element: <NotFound />
     }
-  ],
-    {
-      basename: basename
-    })
+  ])
 
   return (
     <>

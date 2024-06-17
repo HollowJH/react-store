@@ -1,7 +1,6 @@
 {
   "name": "virtual-store",
   "private": true,
-  "homepage": "https://hollowjh.github.io/tienda-egg-react/",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
