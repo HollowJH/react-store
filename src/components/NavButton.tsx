@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-export function NavButton({ title, link }){
+export function NavButton({ title, link }: { title: string, link: string }){
 	return (
 		<li>
             <Link className="w-[150px] inline-block text-white font-bold text-center

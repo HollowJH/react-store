@@ -1,4 +1,4 @@
-export function Description({title, description, colors}) {
+export function Description({title, description, colors}: {title: string, description: string, colors: string[]}) {
 
 	return (
 		<div className="w-[340px] p-2.5 m-2.5 flex flex-col ">

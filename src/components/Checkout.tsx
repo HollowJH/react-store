@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react"
 import { useCart } from "../hooks/useCart"
+import { Product } from "../interfaces/Product"
 
-export function Checkout({ product }) {
+export function Checkout({ product }: {product: Product}) {
 	const { cart, isInCart, updateInCart, updateQuantity } = useCart()
 	const [quantity, setQuantity] = useState(isInCart(product) ? cart[product.title].quantity : 1)
 	const [button, setButton] = useState(isInCart(product))
@@ -15,15 +16,15 @@ export function Checkout({ product }) {
 		updateInCart(product, quantity)
 	}
 
-	function changeQuantity(e) {
-		if (e > product.stock) {
+	function changeQuantity(value: number) {
+		if (value > product.stock) {
 			alert("No existen tantas unidades de este producto")
 			return
 		}
 
 		setQuantity(() => {
-			if (isInCart(product)) updateQuantity(product, e)
-			return e
+			if (isInCart(product)) updateQuantity(product, value)
+			return value
 		})
 	}
 

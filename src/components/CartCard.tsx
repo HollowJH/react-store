@@ -1,9 +1,6 @@
 import { Link } from "react-router-dom"
-import Product from "../interfaces/Product"
+import {CartItem, Product} from "../interfaces/Product"
 
-interface CartItem extends Product {
-	quantity: number
-}
 
 interface CartCardProps {
 	cart: { [key: string]: CartItem }
@@ -11,13 +8,13 @@ interface CartCardProps {
 }
 
 export function CartCard({ cart, updateQuantity }: CartCardProps) {
-	function handleClick(e, product: Product) {
-		if(Number(e.target.value) > product.stock){
+	function handleClick(value: number, product: Product) {
+		if(value > product.stock){
 			alert("No hay tantas unidades de este producto")
-			e.target.value = product.stock
+			value = product.stock
 			return
 		}
-		updateQuantity(product, Number(e.target.value))
+		updateQuantity(product, value)
 	}
 
 	return (<>
@@ -33,7 +30,7 @@ export function CartCard({ cart, updateQuantity }: CartCardProps) {
 						<p className="whitespace-nowrap text-ellipsis overflow-hidden">{elem.description}</p>
 						<input className="w-[70px] h-10 rounded-[10px] border-[#eaeaea] border-[1px] border-solid p-[5px]"
 							type="number" name="quantity" defaultValue={cart[elem.title].quantity} min="1" max={elem.stock}
-							id={elem.id} onChange={(e) => handleClick(e, elem)} />
+							id={elem.id} onChange={(e) => handleClick(Number(e.target.value), elem)} />
 					</div>
 					<strong className="w-full text-right">AR$ ${elem.price * cart[elem.title].quantity}</strong>
 				</div>)

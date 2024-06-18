@@ -1,4 +1,4 @@
-export function Hero({first, second}) {
+export function Hero({first, second}: {first: string, second: string}) {
   return (
     <>
       <section className="h-[200px] bg-hero-img bg-cover bg-top flex justify-center">

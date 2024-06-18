@@ -1,18 +1,8 @@
 import { useCallback, useState } from "react"
-
-interface Product {
-	id: string
-	title: string
-	description: string
-	price: number
-	stock: number
-	images: string[]
-	colors: string[]
-	onsale: boolean
-}
+import { Cart, Product } from "../interfaces/Product"
 
 export function useCart() {
-	const [cart, setCart] = useState<{[key: string]: Product & {quantity: number}}>(JSON.parse(localStorage.getItem("cart") ?? "{}"))
+	const [cart, setCart] = useState<Cart>(JSON.parse(localStorage.getItem("cart") ?? "{}"))
 	const [total, setTotal] = useState(Object.values(cart).reduce((acc, curr) => acc + (curr.price * curr.quantity), 0))
 
 	const isInCart = useCallback((product: Product) => Object.values(cart).some((elem: Product) => elem.id === product.id), [cart])
@@ -38,7 +28,7 @@ export function useCart() {
 	}, [isInCart])
 	
 	const updateQuantity = useCallback((product: Product, quantity: number) => {
-		const newCart = {... cart}
+		const newCart = {...cart}
 		newCart[product.title].quantity = quantity
 		setCart(newCart)
 		localStorage.setItem("cart", JSON.stringify(newCart))

@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 
-export function Thumbs({title, images}) {
+export function Thumbs({title, images}: {title: string, images: string[]}) {
 	const [thumb, setThumb] = useState(images[0] || "/mock1.jpg");
 	
-	function handleClick(e) {
-		const [newThumb, newImg] = [e.currentTarget.src, thumb]
+	function handleClick(src: string) {
+		const [newThumb, newImg] = [src, thumb]
 
-		e.currentTarget.src = newImg
+		src = newImg
 		setThumb(newThumb)
 	}
 	
@@ -21,7 +21,7 @@ export function Thumbs({title, images}) {
 						src={img}
 						key={img}
 						alt={title}
-						onClick={handleClick}
+						onClick={(e) => handleClick(e.currentTarget.src)}
 					/>)}
 			</div>
 			<img

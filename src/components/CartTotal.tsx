@@ -1,4 +1,4 @@
-export function CartTotal({total}) {
+export function CartTotal({ total }: { total: number }) {
 
 	return (<>
 		<article className="w-[340px] h-[220px] flex flex-col p-8 m-2.5 bg-[#f2f2f2] rounded-[5px] break-word">
