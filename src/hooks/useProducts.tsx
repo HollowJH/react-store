@@ -6,7 +6,7 @@ export function useProducts() {
 	const [products, setProducts] = useState<Product[]>([])
 
 	useEffect(() => {
-		axios("/public/products.json")
+		axios("/products.json")
 		.then((res) => setProducts(res.data.products))
 		.catch(err => console.log(err))
 	},[])

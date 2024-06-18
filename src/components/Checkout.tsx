@@ -41,7 +41,7 @@ export function Checkout({ product }: {product: Product}) {
 					<ul className="p-0 list-none mb-[30px]">
 						<li className="flex my-[15px] mx-0">
 							<span className="mr-[15px]">
-								<img className="max-w-none" src="/src/assets/truck.png" alt="Truck"/>
+								<img className="max-w-none" src="/assets/truck.png" alt="Truck"/>
 							</span>
 							<span>
 								Agrega el producto al carrito para conocer los costos de
@@ -50,7 +50,7 @@ export function Checkout({ product }: {product: Product}) {
 						</li>
 						<li className="flex my-[15px] mx-0">
 							<span className="mr-[15px]">
-								<img className="max-w-none" src="/src/assets/plane.png" alt="Plane" />
+								<img className="max-w-none" src="/assets/plane.png" alt="Plane" />
 							</span>
 							<span>
 								Recibí aproximadamente entre 10 y 15 días hábiles,

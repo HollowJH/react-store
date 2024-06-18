@@ -6,7 +6,6 @@ import { NotFound } from "./views/NotFound.tsx";
 
 
 function App() {
-  // let basename = '/';
 
   const browserRouter = createBrowserRouter([
     {

@@ -7,6 +7,7 @@ export interface Product {
 	images: string[]
 	colors: string[]
 	onsale: boolean
+	quantity?: number
 }
 
 export interface CartItem extends Product {

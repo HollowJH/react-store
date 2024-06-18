@@ -1,7 +1,7 @@
 import { NavBar } from '../components/NavBar.tsx'
 import { Hero } from '../components/Hero.tsx'
 import { Footer } from '../components/Footer.tsx'
-import { ProductCard } from '../ProductCard.tsx'
+import { ProductCard } from '../components/ProductCard.tsx'
 import { Product } from '../interfaces/Product'
 import { useProducts } from '../hooks/useProducts.tsx'
 

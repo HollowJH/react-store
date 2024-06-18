@@ -10,7 +10,7 @@ export default {
   theme: {
     extend: {
       backgroundImage: {
-        "hero-img": 'url("/src/assets/hero_bg.png")'
+        "hero-img": 'url("/assets/hero_bg.png")'
       },
       gridTemplateColumns: {
         'auto-fit-minmax': 'repeat(auto-fit, minmax(200px, 1fr))',
