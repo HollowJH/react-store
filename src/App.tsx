@@ -3,6 +3,8 @@ import { Home } from "./views/Home.tsx"
 import { Details } from "./views/Details.tsx";
 import { Cart } from "./views/Cart.tsx";
 import { NotFound } from "./views/NotFound.tsx";
+import { Provider } from "react-redux";
+import store from "./index.ts";
 
 
 function App() {
@@ -35,9 +37,9 @@ function App() {
   ])
 
   return (
-    <>
+    <Provider store={store}>
       <RouterProvider router={browserRouter} />
-    </>
+    </Provider>
   )
 }
 

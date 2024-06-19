@@ -7,7 +7,7 @@ export function ProductCard({product}) {
 	return (
 		<>
 			<Link className="bg-[#f0f0f0] text-[#383838] rounded-[15px]
-			w-[250px] m-1 no-underline" to={"/details/"+id}>
+			w-[250px] m-1 no-underline mx-auto" to={"/details/"+id}>
 				<img
 					className="w-full h-[250px] object-cover object-center rounded-t-[15px]"
 					src={images[0]}

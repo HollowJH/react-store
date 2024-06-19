@@ -1,7 +1,18 @@
 import { Link } from "react-router-dom"
 import { NavButton } from "./NavButton.tsx"
+import { useRef } from "react"
+import { useDispatch } from "react-redux"
+import { captureText } from "../actions/products.ts"
+import { AppDispatch } from "../index.ts"
 
 export function NavBar() {
+  const search = useRef<HTMLInputElement>(null)
+  const dispatch = useDispatch<AppDispatch>()
+
+  function setText() {
+    dispatch(captureText({ text: search.current?.value }))
+  }
+
   return (
     <header className="w-full h-[150px] bg-[#ff3b3c] px-[20px] 
     pt-[20px] pb-0 flex flex-col items-center">
@@ -21,6 +32,8 @@ export function NavBar() {
             type="text"
             placeholder="Search"
             id="search"
+            ref={search}
+            onChange={setText}
           />
         </form>
         <ul className="w-[33%] flex items-center grow justify-end list-none">
